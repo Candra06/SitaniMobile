@@ -21,7 +21,7 @@ class Config {
   static final HexColor closed = new HexColor('#B3B3B3');
   static final HexColor open = new HexColor('#00C45C');
 
-  static final String ipServer = 'http://sunori.ilkom.unej.ac.id/';
+  static final String ipServer = 'http://1e9f7cacf40f.ngrok.io/';
   static final String ipServerAPI = ipServer + 'api/';
   static final String ipAssets = '';
 
@@ -141,9 +141,21 @@ class Config {
     return email;
   }
 
-  static getNik() async {
+  static getAlamat() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String nik = preferences.getString('nik');
-    return nik;
+    String alamat = preferences.getString('alamat');
+    return alamat;
+  }
+
+  static getKecamatan() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String kecamatan = preferences.getString('kecamatan');
+    return kecamatan;
+  }
+
+  static getTelepon() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String telepon = preferences.getString('telepon');
+    return telepon;
   }
 }

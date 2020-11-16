@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sitani_app/helper/config.dart';
 import 'package:sitani_app/helper/routes.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LupaSandi extends StatefulWidget {
   @override
@@ -11,6 +14,32 @@ class LupaSandi extends StatefulWidget {
 
 class _LupaSandiState extends State<LupaSandi> {
   TextEditingController txEmail = new TextEditingController();
+
+  void sendEmail() async {
+    Config.loading(context);
+    var body = new Map<String, dynamic>();
+    body['email'] = txEmail.text;
+
+    http.Response req =
+        await http.post(Config.ipServerAPI + 'forgotPassword', body: body);
+
+    if (req.statusCode == 200) {
+      var data = json.decode(req.body);
+      print(data['status']);
+      if (data['status'] == '200') {
+        Navigator.pop(context);
+        print(data['id']);
+        Navigator.pushNamed(context, Routes.RESET_SANDI,
+            arguments: data['id'].toString());
+      } else {
+        Navigator.pop(context);
+        Config.alert(0, 'Email tidak terdaftar');
+      }
+    } else {
+      Navigator.pop(context);
+      Config.alert(0, 'Gagal mengirim data');
+    }
+  }
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -93,7 +122,7 @@ class _LupaSandiState extends State<LupaSandi> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.emailAddress,
-                                  // controller: txEmail,
+                                  controller: txEmail,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.email_sharp,
@@ -119,14 +148,12 @@ class _LupaSandiState extends State<LupaSandi> {
                           padding: EdgeInsets.only(top: 13, bottom: 13),
                           color: Colors.red,
                           onPressed: () {
-                            Navigator.pushNamed(context, Routes.RESET_SANDI);
-                            // if (txEmail.text.isEmpty) {
-                            //   Config.alert(0, "Email tidak valid!");
-                            // } else if (txpassword.text.isEmpty) {
-                            //   Config.alert(0, "Password tidak valid!");
-                            // } else {
-                            //   login();
-                            // }
+                            // Navigator.pushNamed(context, Routes.RESET_SANDI);
+                            if (txEmail.text.isEmpty) {
+                              Config.alert(0, "Email tidak valid!");
+                            } else {
+                              sendEmail();
+                            }
                             // Navigator.pushNamed(context, Routes.HOMEPAGE,
                             //     arguments: 0.toString());
                             // Navigator.pushNamed(

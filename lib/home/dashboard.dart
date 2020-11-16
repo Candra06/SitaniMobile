@@ -8,14 +8,30 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  String nama = 'User';
+  String nama = '', email = '', token = '';
+  void getInfo() async {
+    var xnama = await Config.getNama();
+    var xemail = await Config.getEmail();
+    var xtoken = await Config.getToken();
+    setState(() {
+      nama = xnama;
+      email = xemail;
+      token = xtoken;
+    });
+  }
+
+  @override
+  void initState() {
+    getInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double cWidth = MediaQuery.of(context).size.width;
-    return new SafeArea(
-        child: new Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Column(
         children: <Widget>[
           FadeAnimation(
             1.4,
@@ -27,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     1.2,
                     new Container(
                       width: cWidth,
-                      padding: EdgeInsets.only(right: 16, left: 16, top: 20),
+                      padding: EdgeInsets.only(right: 16, left: 16, top: 38),
                       height: 200,
                       decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.only(
@@ -64,117 +80,117 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    right: 0,
-                    left: 0,
-                    child: Center(
-                      child: new Container(
-                          decoration: new BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                              color: Colors.transparent,
-                              borderRadius: new BorderRadius.circular(20.0)),
-                          width: cWidth,
-                          margin: EdgeInsets.only(right: 16, left: 16),
-                          height: 150,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Container(
-                                      //   child: Text(plant.toString(),
-                                      //       style: TextStyle(
-                                      //           color: Config.darkprimary,
-                                      //           fontSize: 32,
-                                      //           fontWeight: FontWeight.bold)),
-                                      // ),
-                                      Container(
-                                        child: Text('Data Tanaman',
-                                            style: TextStyle(
-                                                color: Colors.black45)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 8, bottom: 8),
-                                  height: 50,
-                                  child: VerticalDivider(
-                                    color: Colors.black45,
-                                    width: 10,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Container(
-                                      //   child: Text(desease.toString(),
-                                      //       style: TextStyle(
-                                      //           color: Config.darkprimary,
-                                      //           fontSize: 32,
-                                      //           fontWeight: FontWeight.bold)),
-                                      // ),
-                                      Container(
-                                        child: Text('Data Penyakit',
-                                            style: TextStyle(
-                                                color: Colors.black45)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 8, bottom: 8),
-                                  height: 50,
-                                  child: VerticalDivider(
-                                    color: Colors.black45,
-                                    width: 10,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Container(
-                                      //   child: Text(user.toString(),
-                                      //       style: TextStyle(
-                                      //           color: Config.darkprimary,
-                                      //           fontSize: 32,
-                                      //           fontWeight: FontWeight.bold)),
-                                      // ),
-                                      Container(
-                                        child: Text(
-                                          'Data Akun',
-                                          style:
-                                              TextStyle(color: Colors.black45),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ),
-                  )
+                  // Positioned(
+                  //   bottom: 10,
+                  //   right: 0,
+                  //   left: 0,
+                  //   child: Center(
+                  //     child: new Container(
+                  //         decoration: new BoxDecoration(
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                 color: Colors.grey.withOpacity(0.3),
+                  //                 spreadRadius: 2,
+                  //                 blurRadius: 7,
+                  //                 offset: Offset(0, 3),
+                  //               ),
+                  //             ],
+                  //             color: Colors.transparent,
+                  //             borderRadius: new BorderRadius.circular(20.0)),
+                  //         width: cWidth,
+                  //         margin: EdgeInsets.only(right: 16, left: 16),
+                  //         height: 150,
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //               color: Colors.white,
+                  //               borderRadius: BorderRadius.circular(20)),
+                  //           child: Row(
+                  //             crossAxisAlignment: CrossAxisAlignment.center,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Container(
+                  //                 padding: EdgeInsets.all(8),
+                  //                 child: Column(
+                  //                   mainAxisAlignment: MainAxisAlignment.center,
+                  //                   children: <Widget>[
+                  //                     // Container(
+                  //                     //   child: Text(plant.toString(),
+                  //                     //       style: TextStyle(
+                  //                     //           color: Config.darkprimary,
+                  //                     //           fontSize: 32,
+                  //                     //           fontWeight: FontWeight.bold)),
+                  //                     // ),
+                  //                     Container(
+                  //                       child: Text('Data Tanaman',
+                  //                           style: TextStyle(
+                  //                               color: Colors.black45)),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 margin: EdgeInsets.only(top: 8, bottom: 8),
+                  //                 height: 50,
+                  //                 child: VerticalDivider(
+                  //                   color: Colors.black45,
+                  //                   width: 10,
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 padding: EdgeInsets.all(8),
+                  //                 child: Column(
+                  //                   mainAxisAlignment: MainAxisAlignment.center,
+                  //                   children: <Widget>[
+                  //                     // Container(
+                  //                     //   child: Text(desease.toString(),
+                  //                     //       style: TextStyle(
+                  //                     //           color: Config.darkprimary,
+                  //                     //           fontSize: 32,
+                  //                     //           fontWeight: FontWeight.bold)),
+                  //                     // ),
+                  //                     Container(
+                  //                       child: Text('Data Penyakit',
+                  //                           style: TextStyle(
+                  //                               color: Colors.black45)),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 margin: EdgeInsets.only(top: 8, bottom: 8),
+                  //                 height: 50,
+                  //                 child: VerticalDivider(
+                  //                   color: Colors.black45,
+                  //                   width: 10,
+                  //                 ),
+                  //               ),
+                  //               Container(
+                  //                 padding: EdgeInsets.all(8),
+                  //                 child: Column(
+                  //                   mainAxisAlignment: MainAxisAlignment.center,
+                  //                   children: <Widget>[
+                  //                     // Container(
+                  //                     //   child: Text(user.toString(),
+                  //                     //       style: TextStyle(
+                  //                     //           color: Config.darkprimary,
+                  //                     //           fontSize: 32,
+                  //                     //           fontWeight: FontWeight.bold)),
+                  //                     // ),
+                  //                     Container(
+                  //                       child: Text(
+                  //                         'Data Akun',
+                  //                         style:
+                  //                             TextStyle(color: Colors.black45),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         )),
+                  //   ),
+                  // )
                 ],
               ),
             ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sitani_app/auth/login.dart';
 import 'package:sitani_app/helper/config.dart';
+import 'package:sitani_app/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -24,23 +24,18 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _controller.forward();
 
     Future.delayed(Duration(seconds: 3), () async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
+      
       Navigator.of(context).pushReplacement(PageTransition(
               child: LoginPage(), type: PageTransitionType.fade));
       String token = await Config.getToken();
-      // print('token '+token);
-      if (pref.getInt("key") == 1) {
         if (token == '' || token == null) {
           Navigator.of(context).pushReplacement(PageTransition(
               child: LoginPage(), type: PageTransitionType.fade));
         } else {
-          // Navigator.of(context).pushReplacement(
-          //     PageTransition(child: HomePage(), type: PageTransitionType.fade));
+          Navigator.of(context).pushReplacement(
+              PageTransition(child: Home(indexPage: 0.toString(),), type: PageTransitionType.fade));
         }
-      } else {
-        // Navigator.of(context).pushReplacement(PageTransition(
-        //     child: SliderIntro(), type: PageTransitionType.upToDown));
-      }
+      
     });
   }
 

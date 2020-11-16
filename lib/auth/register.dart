@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sitani_app/helper/config.dart';
 import 'package:sitani_app/helper/routes.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -13,10 +15,37 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isHidden = true;
   TextEditingController txEmail = new TextEditingController();
   TextEditingController txpassword = new TextEditingController();
+  TextEditingController txNama = new TextEditingController();
+  TextEditingController txKecamatan = new TextEditingController();
+  TextEditingController txAlamat = new TextEditingController();
+  TextEditingController txTelepon = new TextEditingController();
   void _toggleVisibility() {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+
+  void register() async {
+    Config.loading(context);
+    var body = new Map<String, dynamic>();
+    body['nama'] = txNama.text;
+    body['telepon'] = txTelepon.text;
+    body['kecamatan'] = txKecamatan.text;
+    body['alamat'] = txAlamat.text;
+    body['email'] = txEmail.text;
+    body['password'] = txpassword.text;
+    print(body);
+    var req = await http.post(Config.ipServerAPI + 'register', body: body);
+    print(Config.ipServerAPI + 'register');
+    print(req.body);
+    if (req.statusCode == 200) {
+      Config.alert(1, 'Registrasi berhasil, silahkan login!');
+      Navigator.pop(context);
+      Navigator.pushNamed(context, Routes.LOGIN);
+    } else {
+      Config.alert(0, 'Registrasi gagal, silahkan periksa data anda!');
+      Navigator.pop(context);
+    }
   }
 
   Future<bool> _onWillPop() {
@@ -94,11 +123,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.text,
-                                  // controller: txEmail,
-
+                                  controller: txNama,
                                   decoration: InputDecoration(
                                     alignLabelWithHint: true,
-                                    prefixIcon: Icon(Icons.account_box, color: Colors.black54,),
+                                    prefixIcon: Icon(
+                                      Icons.account_box,
+                                      color: Colors.black54,
+                                    ),
                                     fillColor: Colors.black54,
                                     hintText: "Nama",
                                     hintStyle: TextStyle(
@@ -125,11 +156,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.phone,
-                                  // controller: txEmail,
-
+                                  controller: txTelepon,
                                   decoration: InputDecoration(
                                     alignLabelWithHint: true,
-                                    prefixIcon: Icon(Icons.phone, color: Colors.black54,),
+                                    prefixIcon: Icon(
+                                      Icons.phone,
+                                      color: Colors.black54,
+                                    ),
                                     fillColor: Colors.black54,
                                     hintText: "Telepon",
                                     hintStyle: TextStyle(
@@ -156,12 +189,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.text,
-                                  // controller: txEmail,
-
+                                  controller: txKecamatan,
                                   decoration: InputDecoration(
                                     alignLabelWithHint: true,
-                                    prefixIcon:
-                                        Icon(Icons.location_city_outlined, color: Colors.black54,),
+                                    prefixIcon: Icon(
+                                      Icons.location_city_outlined,
+                                      color: Colors.black54,
+                                    ),
                                     fillColor: Colors.black54,
                                     hintText: "Kecamatan",
                                     hintStyle: TextStyle(
@@ -188,11 +222,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.emailAddress,
-                                  // controller: txEmail,
-
+                                  controller: txAlamat,
                                   decoration: InputDecoration(
                                     alignLabelWithHint: true,
-                                    prefixIcon: Icon(Icons.map, color: Colors.black54,),
+                                    prefixIcon: Icon(
+                                      Icons.map,
+                                      color: Colors.black54,
+                                    ),
                                     fillColor: Colors.black54,
                                     hintText: "Alamat",
                                     hintStyle: TextStyle(
@@ -219,13 +255,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: TextStyle(color: Colors.black54),
                                   obscureText: false,
                                   keyboardType: TextInputType.emailAddress,
-                                  // controller: txEmail,
-
+                                  controller: txEmail,
                                   decoration: InputDecoration(
                                     alignLabelWithHint: true,
-                                    prefixIcon:
-                                        Icon(Icons.alternate_email_sharp, color: Colors.black54,),
-                                        focusColor: Colors.black54,
+                                    prefixIcon: Icon(
+                                      Icons.alternate_email_sharp,
+                                      color: Colors.black54,
+                                    ),
+                                    focusColor: Colors.black54,
                                     fillColor: Colors.black54,
                                     hintText: "Email",
                                     hintStyle: TextStyle(
@@ -253,7 +290,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                   obscureText: _isHidden,
                                   controller: txpassword,
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.lock, color: Colors.black54,),
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.black54,
+                                    ),
                                     alignLabelWithHint: true,
                                     hintText: "Password",
                                     fillColor: Colors.black54,
@@ -281,7 +321,28 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: RaisedButton(
                           padding: EdgeInsets.only(top: 13, bottom: 13),
                           color: Colors.red,
-                          onPressed: () {},
+                          onPressed: () {
+                            if (txNama.text == '' || txNama.text == null) {
+                              Config.alert(2, "Nama tidak boleh kosong");
+                            } else if (txTelepon.text == '' ||
+                                txTelepon.text == null) {
+                              Config.alert(2, "Telepon tidak boleh kosong");
+                            } else if (txKecamatan.text == '' ||
+                                txKecamatan.text == null) {
+                              Config.alert(2, "Kecamatan tidak boleh kosong");
+                            } else if (txAlamat.text == '' ||
+                                txAlamat.text == null) {
+                              Config.alert(2, "Alamat tidak boleh kosong");
+                            } else if (txEmail.text == '' ||
+                                txEmail.text == null) {
+                              Config.alert(2, "Email tidak boleh kosong");
+                            } else if (txpassword.text == '' ||
+                                txpassword.text == null) {
+                              Config.alert(2, "Password tidak boleh kosong");
+                            } else {
+                              register();
+                            }
+                          },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(

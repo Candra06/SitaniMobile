@@ -1,15 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:sitani_app/helper/config.dart';
 import 'package:sitani_app/helper/routes.dart';
+import 'package:http/http.dart' as http;
 
 class ResetPassword extends StatefulWidget {
+  final String id;
+  ResetPassword({this.id});
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  bool _isHidden = true, visisble = false;
+  bool _isHidden = true, visisble = true;
   TextEditingController txKonfirmpassword = new TextEditingController();
   TextEditingController txpassword = new TextEditingController();
   void _toggleVisibility() {
@@ -22,6 +26,23 @@ class _ResetPasswordState extends State<ResetPassword> {
     setState(() {
       visisble = !visisble;
     });
+  }
+
+  void resetPassword() async {
+    Config.loading(context);
+    var body = new Map<String, dynamic>();
+    body['password'] = txpassword.text;
+    print(widget.id);
+    http.Response req = await http
+        .post(Config.ipServerAPI + 'requestPass/' + widget.id, body: body);
+    if (req.statusCode == 200) {
+      Navigator.pop(context);
+      Config.alert(1, 'Berhasil merubah password');
+      Navigator.pushNamed(context, Routes.LOGIN);
+    } else {
+      Config.alert(1, 'Gagal merubah password');
+      Navigator.pop(context);
+    }
   }
 
   Future<bool> _onWillPop() {
@@ -160,10 +181,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     border: InputBorder.none,
                                     suffixIcon: IconButton(
                                       onPressed: hidden,
-                                      icon: visisble
-                                          ? Icon(Icons.visibility,
+                                      icon: visisble == true
+                                          ? Icon(Icons.visibility_off,
                                               color: Colors.black45)
-                                          : Icon(Icons.visibility_off,
+                                          : Icon(Icons.visibility,
                                               color: Colors.black45),
                                     ),
                                   )),
@@ -178,19 +199,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                           padding: EdgeInsets.only(top: 13, bottom: 13),
                           color: Colors.red,
                           onPressed: () {
-                            Navigator.pushNamed(context, Routes.LOGIN);
-                            // if (txEmail.text.isEmpty) {
-                            //   Config.alert(0, "Email tidak valid!");
-                            // } else if (txpassword.text.isEmpty) {
-                            //   Config.alert(0, "Password tidak valid!");
-                            // } else {
-                            //   login();
-                            // }
-                            // Navigator.pushNamed(context, Routes.HOMEPAGE,
-                            //     arguments: 0.toString());
-                            // Navigator.pushNamed(
-                            //     context, Routes.HOME_TEKNISI,
-                            //     arguments: 0.toString());
+                            
+                            if (txpassword.text.isEmpty) {
+                              Config.alert(0, "Password tidak boleh kosong!");
+                            } else if (txKonfirmpassword.text !=
+                                txpassword.text) {
+                              Config.alert(0, "Password tidak sesuai!");
+                            } else {
+                              resetPassword();
+                            }
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),

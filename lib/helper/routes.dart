@@ -5,6 +5,7 @@ import 'package:sitani_app/auth/lupaPassword.dart';
 import 'package:sitani_app/auth/register.dart';
 import 'package:sitani_app/auth/resetPassword.dart';
 import 'package:sitani_app/auth/splash.dart';
+import 'package:sitani_app/auth/updateProfil.dart';
 import 'package:sitani_app/home/home.dart';
 
 class Routes {
@@ -14,6 +15,7 @@ class Routes {
   static const String LUPA_SANDI = '/lupa_sandi';
   static const String RESET_SANDI = '/reset_sandi';
   static const String HOME = '/home';
+  static const String UPDATE_PROFIL = '/updateProfil';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case SPLASH:
@@ -29,10 +31,13 @@ class Routes {
             child: LupaSandi(), type: PageTransitionType.leftToRight);
       case RESET_SANDI:
         return PageTransition(
-            child: ResetPassword(), type: PageTransitionType.leftToRight);
+            child: ResetPassword(id: settings.arguments,), type: PageTransitionType.leftToRight);
       case HOME:
         return PageTransition(
             child: Home(indexPage: settings.arguments,), type: PageTransitionType.leftToRight);
+      case UPDATE_PROFIL:
+        return PageTransition(
+            child: UpdateProfil(), type: PageTransitionType.leftToRight);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
