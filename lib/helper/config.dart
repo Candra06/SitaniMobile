@@ -7,21 +7,23 @@ import 'package:intl/intl.dart';
 import 'package:sitani_app/helper/hexColor.dart';
 
 class Config {
-  static final HexColor primary = new HexColor('#e13b21');
+  static final HexColor primary = new HexColor('#d62b0f');
   static final HexColor darkPrimary = new HexColor('#922312');
   static final HexColor textWhite = new HexColor('#ffffff');
   static final HexColor textAuth = new HexColor('#407a9d');
   static final HexColor textMerah = new HexColor('#e82b3f');
   static final HexColor textGrey = new HexColor('#b7b8bc');
   static final HexColor textBlack = new HexColor('#000000');
-  static final HexColor boxGreen = new HexColor('#e7f9f2');
+  static final HexColor boxGreen = new HexColor('#2ecc71');
+  static final HexColor boxYellow = new HexColor('#f39c12');
+  static final HexColor boxYellowLight = new HexColor('#f1c40f');
   static final HexColor boxRed = new HexColor('#fbedee');
   static final HexColor boxBlue = new HexColor('#eceff1');
   static final HexColor onprogres = new HexColor('#008EE5');
   static final HexColor closed = new HexColor('#B3B3B3');
   static final HexColor open = new HexColor('#00C45C');
 
-  static final String ipServer = 'http://1e9f7cacf40f.ngrok.io/';
+  static final String ipServer = 'http://7f98615793d2.ngrok.io/';
   static final String ipServerAPI = ipServer + 'api/';
   static final String ipAssets = '';
 
@@ -44,7 +46,7 @@ class Config {
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SpinKitHourGlass(color: Config.primary, size: 50.0),
+                      SpinKitCubeGrid(color: Config.primary, size: 50.0),
                       SizedBox(height: 30.0),
                       Text(
                         "Memuat Data",
@@ -73,14 +75,17 @@ class Config {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SpinKitHourGlass(color: Config.primary, size: 50.0),
+          SpinKitCubeGrid(color: Config.primary, size: 50.0),
           new Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Padding(
               padding: EdgeInsets.only(top: 8),
               child: new Text(
                 pesan,
-                style: new TextStyle(color: Colors.black54, fontSize: 16.0),
+                style: new TextStyle(
+                    fontFamily: 'AirbnbMedium',
+                    color: Colors.black54,
+                    fontSize: 16.0),
               ),
             ),
           )

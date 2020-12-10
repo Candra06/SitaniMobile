@@ -36,6 +36,37 @@ class _SideProfileState extends State<SideProfile> {
         MaterialPageRoute(builder: (BuildContext context) => LoginPage()));
   }
 
+  alertLogout() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Apakah Anda Yakin?'),
+            content: new Text('Ingin logout dari akun ini?'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text(
+                  'Tidak',
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                ),
+              ),
+              new FlatButton(
+                onPressed: () {
+                  logOut();
+                },
+                child: new Text(
+                  'Ya',
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +80,11 @@ class _SideProfileState extends State<SideProfile> {
                     bottomRight: Radius.circular(30)),
                 gradient: LinearGradient(
                     begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    end: Alignment.bottomRight,
                     colors: <Color>[
-                      Config.textMerah,
-                      Config.textMerah,
-                      Config.primary
+                      Config.primary,
+                      Config.primary,
+                      Config.darkPrimary
                     ])),
             //menampilkan detail profile akun
             child: Column(children: <Widget>[
@@ -181,7 +212,7 @@ class _SideProfileState extends State<SideProfile> {
               ),
               GestureDetector(
                 onTap: () {
-                  logOut(); // memanggil method logout
+                  alertLogout(); // memanggil method logout
                 },
                 child: new Container(
                   width: MediaQuery.of(context).size.width,
@@ -213,7 +244,7 @@ class _SideProfileState extends State<SideProfile> {
                           color: Colors.black38,
                         ),
                         onPressed: () {
-                          logOut();
+                          alertLogout();
                         },
                       )),
                     ),

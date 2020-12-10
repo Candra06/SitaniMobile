@@ -9,8 +9,9 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
- AnimationController _controller;
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
   Animation<double> _animation;
 
   @override
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _controller.forward();
 
     Future.delayed(Duration(seconds: 3), () async {
-      
+
       Navigator.of(context).pushReplacement(PageTransition(
               child: LoginPage(), type: PageTransitionType.fade));
       String token = await Config.getToken();
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
           Navigator.of(context).pushReplacement(
               PageTransition(child: Home(indexPage: 0.toString(),), type: PageTransitionType.fade));
         }
-      
+
     });
   }
 
@@ -57,7 +58,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [                
+              children: [
+                Container(
+                  child: Image(
+                    image: AssetImage('assets/images/logo.png'),
+                    height: 190.0,
+                    width: 190.0,
+                  ),
+                ),
                 Container(
                     margin: EdgeInsets.only(top: 8),
                     child: Text(

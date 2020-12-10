@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:sitani_app/helper/config.dart';
+import 'package:sitani_app/home/artikel.dart';
 import 'package:sitani_app/home/dashboard.dart';
 import 'package:sitani_app/home/profile.dart';
 
@@ -55,12 +56,8 @@ class _HomeState extends State<Home> {
 
   final List<Widget> screens = [
     DashboardPage(),
-    Container(),
-    Container(),
+    SideArtikel(),
     SideProfile(),
-    // SideTanaman(),
-    // SidePenyakit(),
-    // SideAkun(),
   ];
   Widget currentScreen = DashboardPage();
   @override
@@ -78,15 +75,11 @@ class _HomeState extends State<Home> {
                   icon: Icon(
                     Icons.home,
                   ),
+                  // ignore: deprecated_member_use
                   title: new Text(
                     'Beranda',
                     style: TextStyle(),
                   )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.local_florist,
-                  ),
-                  title: new Text('Tanaman')),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.book

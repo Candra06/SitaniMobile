@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                         margin: EdgeInsets.fromLTRB(0, 4, 0, 8),
                         child: RaisedButton(
                           padding: EdgeInsets.only(top: 13, bottom: 13),
-                          color: Colors.red,
+                          color: Config.primary,
                           onPressed: () {
                             if (txEmail.text.isEmpty) {
                               Config.alert(0, "Email tidak valid!");
