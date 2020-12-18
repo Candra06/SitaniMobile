@@ -149,7 +149,7 @@ class _DialogAddPanenState extends State<DialogAddPanen> {
                                   context: context,
                                   currentDate: DateTime.now(),
                                   initialDate: DateTime.now(),
-                                  firstDate: DateTime(1970),
+                                  firstDate: DateTime.now(),
                                   lastDate: DateTime(2022),
                                 ).then((date) {
                                   tglPanen = date;

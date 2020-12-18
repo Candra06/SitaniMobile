@@ -155,7 +155,7 @@ class _DetailPupukState extends State<DetailPupuk> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          'Type ',
+                          'Tipe ',
                           style: TextStyle(
                               color: Colors.black54,
                               fontFamily: 'AirbnbMedium',

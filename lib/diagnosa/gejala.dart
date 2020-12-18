@@ -165,7 +165,7 @@ class _GejalaState extends State<Gejala> {
               color: Config.textWhite,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, Routes.TANAMAN);
+              Navigator.pushNamed(context, Routes.DIAGNOSA);
             },
           ),
           title: new Text(
@@ -189,7 +189,7 @@ class _GejalaState extends State<Gejala> {
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Text(
-                      'Pilih Ya jika tanaman anda mengalami gejala tersebut.',
+                      'Centang jika tanaman anda mengalami gejala tersebut.',
                       textAlign: TextAlign.justify,
                       style: TextStyle(
                           fontFamily: 'AirbnbReguler', color: Config.textGrey)),

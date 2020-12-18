@@ -121,7 +121,7 @@ class _ListTanamanState extends State<ListTanaman> {
             },
           ),
           title: new Text(
-            'Tanamanku',
+            'Lahanku',
             style: TextStyle(color: Config.textWhite),
           ),
           flexibleSpace: new Container(

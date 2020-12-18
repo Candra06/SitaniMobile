@@ -190,8 +190,8 @@ class _AddLahanState extends State<AddLahan> {
                                     context: context,
                                     currentDate: DateTime.now(),
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime(1970),
-                                    lastDate: DateTime(2022),
+                                    firstDate: DateTime(2012),
+                                    lastDate: DateTime.now(),
                                   ).then((date) {
                                     tglTanam = date;
                                     String tanggal = tglTanam

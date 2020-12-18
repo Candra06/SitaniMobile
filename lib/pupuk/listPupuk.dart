@@ -133,9 +133,9 @@ class _ListPupukState extends State<ListPupuk> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-              Config.textMerah,
-              Config.textMerah,
-              Colors.red
+              Config.primary,
+              Config.primary,
+              Config.darkPrimary
             ]))),
       ),
       body: Container(

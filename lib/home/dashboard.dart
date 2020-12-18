@@ -161,7 +161,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             SizedBox(
                               height: 8,
                             ),
-                            Text('Diagnosa Tanaman',
+                            Text('Diagnosa Cabai',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(
@@ -197,7 +197,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             SizedBox(
                               height: 16,
                             ),
-                            Text('Tanamanku',
+                            Text('Lahanku',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                   textStyle: TextStyle(

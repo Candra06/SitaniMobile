@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,7 +14,7 @@ class DetailLahan extends StatefulWidget {
 }
 
 class _DetailLahanState extends State<DetailLahan> {
-  String luas = '', nama = '', jenis = '', status = '', total = '';
+  String luas = '', nama = '', jenis = '', status = '', total = '', tanggal = '';
   List panen = new List();
   bool load = true;
   void getDetail() async {
@@ -34,6 +33,7 @@ class _DetailLahanState extends State<DetailLahan> {
         luas = data['data']['luas'];
         jenis = data['data']['jenis_cabai'];
         status = data['data']['status'];
+        tanggal = data['data']['tanggal_tanam'];
         total = data['total_panen'].toString();
         panen = data['panen'];
       });
@@ -173,6 +173,26 @@ class _DetailLahanState extends State<DetailLahan> {
                                 fontSize: 16),
                           ),
                         ),
+                        Container(
+                            margin: EdgeInsets.only(top: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Tanggal Tanam',
+                                  style: TextStyle(
+                                      color: Colors.black54,
+                                      fontFamily: 'AirbnbMedium',
+                                      fontSize: 16),
+                                ),
+                                Text(
+                                  tanggal == '' ? 'memuat' : Config.formattanggal(tanggal),
+                                  style: TextStyle(
+                                      color: Config.darkPrimary,
+                                      fontFamily: 'AirbnbMedium'),
+                                ),
+                              ],
+                            )),
                         Container(
                             margin: EdgeInsets.only(top: 8),
                             child: Row(
