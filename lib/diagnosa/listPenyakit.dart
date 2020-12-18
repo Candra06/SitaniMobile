@@ -5,12 +5,12 @@ import 'dart:convert';
 
 import 'package:sitani_app/helper/routes.dart';
 
-class ListHama extends StatefulWidget {
+class ListDiagnosaPenyakit extends StatefulWidget {
   @override
-  _ListHamaState createState() => _ListHamaState();
+  _ListDiagnosaPenyakitState createState() => _ListDiagnosaPenyakitState();
 }
 
-class _ListHamaState extends State<ListHama> {
+class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
   List hama = new List();
   bool load = true;
   void getData() async {
@@ -53,7 +53,7 @@ class _ListHamaState extends State<ListHama> {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, Routes.DETAIL_HAMA, arguments: hama[i]['id'].toString());
+                Navigator.pushNamed(context, Routes.GEJALA, arguments: hama[i]['id'].toString());
               },
               child: Card(
                 child: Container(
@@ -61,12 +61,11 @@ class _ListHamaState extends State<ListHama> {
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 8),
-                        child: Icon(
-                          Icons.bug_report_outlined,
-                          color: Config.primary,
-                          size: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50))
                         ),
+                        margin: EdgeInsets.only(right: 8),
+                        child: Image.network(Config.ipServer+hama[i]['gambar'], height: 50,width: 50,)
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -97,36 +96,39 @@ class _ListHamaState extends State<ListHama> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        centerTitle: true,
-        leading: new IconButton(
-          icon: new Icon(
-            Icons.arrow_back,
-            color: Config.textWhite,
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushNamed(context, Routes.HOME, arguments: '0');
+      },
+      child: Scaffold(
+        appBar: new AppBar(
+          centerTitle: true,
+          leading: new IconButton(
+            icon: new Icon(
+              Icons.arrow_back,
+              color: Config.textWhite,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.HOME, arguments: '0');
+            },
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          title: new Text(
+            'Diagnosa Tanaman',
+            style: TextStyle(color: Config.textWhite),
+          ),
+          flexibleSpace: new Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: <Color>[
+            Config.primary,
+            Config.primary,
+            Config.darkPrimary
+          ]))),
         ),
-        title: new Text(
-          'Penyakit dan Hama',
-          style: TextStyle(color: Config.textWhite),
+       
+        body: Container(
+          margin: EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: listData(),
         ),
-        flexibleSpace: new Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[
-              Config.primary,
-              Config.primary,
-              Config.darkPrimary
-            ]))),
-      ),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(16, 8, 16, 0),
-        child: listData(),
       ),
     );
   }

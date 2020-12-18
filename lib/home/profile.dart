@@ -106,7 +106,7 @@ class _SideProfileState extends State<SideProfile> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(57.0),
                     child: Image.asset(
-                      "assets/images/user.png",
+                      "assets/images/farmer.png",
                       fit: BoxFit.fill,
                     ),
                   )),

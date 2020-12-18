@@ -6,6 +6,8 @@ import 'package:sitani_app/auth/register.dart';
 import 'package:sitani_app/auth/resetPassword.dart';
 import 'package:sitani_app/auth/splash.dart';
 import 'package:sitani_app/auth/updateProfil.dart';
+import 'package:sitani_app/diagnosa/gejala.dart';
+import 'package:sitani_app/diagnosa/listPenyakit.dart';
 import 'package:sitani_app/home/detailArtikel.dart';
 import 'package:sitani_app/home/home.dart';
 import 'package:sitani_app/penyakit/detailPenyakit.dart';
@@ -13,6 +15,9 @@ import 'package:sitani_app/penyakit/listPenyakit.dart';
 import 'package:sitani_app/penyakit/penaggulangan.dart';
 import 'package:sitani_app/pupuk/detailPupuk.dart';
 import 'package:sitani_app/pupuk/listPupuk.dart';
+import 'package:sitani_app/tanamanku/addLahan.dart';
+import 'package:sitani_app/tanamanku/detailLahan.dart';
+import 'package:sitani_app/tanamanku/listTanaman.dart';
 
 class Routes {
   static const String SPLASH = '/splash';
@@ -28,6 +33,11 @@ class Routes {
   static const String DETAIL_PUPUK = '/detail_pupuk';
   static const String DETAIL_ARTIKEL = '/detail_artikel';
   static const String PENANGGULANGAN = '/penanggulangan';
+  static const String TANAMAN = '/tanaman';
+  static const String ADD_LAHAN = '/add_lahan';
+  static const String DETAIL_LAHAN = '/detail_lahan';
+  static const String DIAGNOSA = '/diagnosa';
+  static const String GEJALA = '/gejala';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case SPLASH:
@@ -50,6 +60,21 @@ class Routes {
       case UPDATE_PROFIL:
         return PageTransition(
             child: UpdateProfil(), type: PageTransitionType.leftToRight);
+      case DIAGNOSA:
+        return PageTransition(
+            child: ListDiagnosaPenyakit(), type: PageTransitionType.leftToRight);
+      case TANAMAN:
+        return PageTransition(
+            child: ListTanaman(), type: PageTransitionType.leftToRight);
+      case GEJALA:
+        return PageTransition(
+            child: Gejala(idPenyakit: settings.arguments,), type: PageTransitionType.leftToRight);
+      case ADD_LAHAN:
+        return PageTransition(
+            child: AddLahan(), type: PageTransitionType.fade);
+      case DETAIL_LAHAN:
+        return PageTransition(
+            child: DetailLahan(idLahan: settings.arguments,), type: PageTransitionType.fade);
       case LIST_PUPUK:
         return PageTransition(
             child: ListPupuk(), type: PageTransitionType.leftToRight);

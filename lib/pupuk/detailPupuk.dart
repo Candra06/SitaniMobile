@@ -80,9 +80,9 @@ class _DetailPupukState extends State<DetailPupuk> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-              Config.textMerah,
-              Config.textMerah,
-              Colors.red
+              Config.primary,
+              Config.primary,
+              Config.darkPrimary,
             ]))),
       ),
       body: SingleChildScrollView(

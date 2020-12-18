@@ -119,7 +119,7 @@ class _SideArtikelState extends State<SideArtikel> {
             ]))),
       ),
       body: Container(
-        color: Colors.black12,
+        color: Config.background,
         margin: EdgeInsets.only(top: 8),
         child: item(),
       ),

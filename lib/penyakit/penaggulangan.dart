@@ -127,7 +127,7 @@ class _PenanggulanganState extends State<Penanggulangan> {
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(bottom: 8, top: 8),
                     child: Text(
-                      'Ciri-ciri',
+                      'Aturan Pakai',
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           color: Colors.black54,

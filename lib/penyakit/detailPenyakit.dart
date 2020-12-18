@@ -18,26 +18,22 @@ class DetailPenyakit extends StatefulWidget {
 class _DetailPenyakitState extends State<DetailPenyakit> {
   String foto = '',
       nama = '',
-      jenis = '',
-      ciriCiri = '',
-      penanggulangan = '',
-      pencegahan = '';
+      deskripsi = '',
+      penanganan = '';
   List pupuk = new List();
   void getDetail() async {
     String token = await Config.getToken();
     http.Response req = await http.get(
         Config.ipServerAPI + 'penyakit/' + widget.idPenyakit,
         headers: {'Authorization': 'Bearer $token'});
+    print(req.body);
     if (req.statusCode == 200) {
       var data = json.decode(req.body);
       setState(() {
         nama = data['data']['nama'];
         foto = data['data']['gambar'];
-        jenis = data['data']['jenis'];
-        ciriCiri = data['data']['ciri_ciri'];
-        penanggulangan = data['data']['penanggulangan'];
-        pencegahan = data['data']['pencegahan'];
-        pupuk = data['pupuk'];
+        deskripsi = data['data']['deskripsi'];
+        penanganan = data['data']['penanganan'];
         print(foto);
       });
     } else {}
@@ -73,189 +69,82 @@ class _DetailPenyakitState extends State<DetailPenyakit> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: <Color>[
-                Config.textMerah,
-                Config.textMerah,
-                Colors.red
+                Config.primary,
+                Config.primary,
+                Config.darkPrimary
               ]))),
         ),
-        body: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: <Widget>[
-              Container(
-                constraints: BoxConstraints(maxHeight: 150.0),
-                child: Material(
-                  color: HexColor('#fffff'),
-                  child: TabBar(
-                    unselectedLabelColor: Colors.grey,
-                    unselectedLabelStyle:
-                        TextStyle(fontWeight: FontWeight.normal),
-                    indicatorColor: Config.darkPrimary,
-                    labelColor: Config.darkPrimary,
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    tabs: [
-                      Tab(
-                        text: 'Detail',
-                      ),
-                      Tab(text: 'Rekomendasi Pupuk'),
-                    ],
-                  ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(top: 4, bottom: 8),
+                    child: Center(
+                      child: Text(nama,
+                          style: TextStyle(
+                            color: Config.darkPrimary,
+                            fontSize: 20,
+                            fontFamily: 'AirbnbBold',
+                          )),
+                    )),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  child: foto == ''
+                      ? Config.newloader('Memuat data')
+                      : CachedNetworkImage(
+                          imageUrl: Config.ipServer + foto.toString(),
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
                 ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [detail(), rekomendasiPupuk()],
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-
-  detail() {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Container(
-                margin: EdgeInsets.only(top: 4, bottom: 8),
-                child: Center(
-                  child: Text(nama,
-                      style: TextStyle(
-                        color: Config.darkPrimary,
-                        fontSize: 20,
-                        fontFamily: 'AirbnbBold',
-                      )),
-                )),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              child: foto == ''
-                  ? Config.newloader('Memuat data')
-                  : CachedNetworkImage(
-                      imageUrl: Config.ipServer + foto.toString(),
-                      height: 110,
-                      width: 110,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Jenis ',
+               
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(bottom: 8, top: 8),
+                    child: Text(
+                      'Deskripsi',
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                           color: Colors.black54,
-                          fontFamily: 'AirbnbMedium',
-                          fontSize: 16),
-                    ),
-                    Text(
-                      jenis,
-                      style: TextStyle(
-                          color: Config.darkPrimary,
+                          fontSize: 16,
                           fontFamily: 'AirbnbMedium'),
-                    ),
-                  ],
-                )),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 8, top: 8),
-                child: Text(
-                  'Ciri-ciri',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16,
-                      fontFamily: 'AirbnbMedium'),
-                )),
-            Container(
-              margin: EdgeInsets.only(bottom: 8),
-              child: HtmlWidget(
-                ciriCiri,
-                textStyle: TextStyle(color: Colors.black54),
-              ),
-            ),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 8, top: 8),
-                child: Text(
-                  'Penanggulangan',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16,
-                      fontFamily: 'AirbnbMedium'),
-                )),
-            Container(
-              margin: EdgeInsets.only(bottom: 8),
-              child: HtmlWidget(
-                penanggulangan,
-                textStyle: TextStyle(color: Colors.black54),
-              ),
-            ),
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 8, top: 8),
-                child: Text(
-                  'Pencegahan',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16,
-                      fontFamily: 'AirbnbMedium'),
-                )),
-            Container(
-              margin: EdgeInsets.only(bottom: 8),
-              child: HtmlWidget(
-                pencegahan,
-                textStyle: TextStyle(color: Colors.black54),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  rekomendasiPupuk() {
-    return Container(
-        margin: EdgeInsets.all(16),
-        child: ListView.builder(
-          itemCount: pupuk.isEmpty ? 0 : pupuk.length,
-          itemBuilder: (BuildContext context, int i) {
-            return InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.PENANGGULANGAN, arguments: pupuk[i]['id'].toString());
-              },
-              child: Card(
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(pupuk[i]['nama_pupuk'],
-                          style: TextStyle(
-                              fontFamily: 'AirbnbMedium',
-                              color: Config.darkPrimary,
-                              fontSize: 16)),
-                      Text(
-                        pupuk[i]['type'],
-                        style: TextStyle(
-                            fontFamily: 'Airbnb', color: Colors.black54),
-                      ),
-                    ],
+                    )),
+                Container(
+                  margin: EdgeInsets.only(bottom: 8),
+                  child: HtmlWidget(
+                    deskripsi == null || deskripsi == '' ? 'Memuat data' :deskripsi,
+                    textStyle: TextStyle(color: Colors.black54),
                   ),
                 ),
-              ),
-            );
-          },
+                Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(bottom: 8, top: 8),
+                    child: Text(
+                      'Penanganan',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 16,
+                          fontFamily: 'AirbnbMedium'),
+                    )),
+                Container(
+                  margin: EdgeInsets.only(bottom: 8),
+                  child: HtmlWidget(
+                    penanganan == null || penanganan == '' ? 'Memuat data' :penanganan,
+                    textStyle: TextStyle(color: Colors.black54),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ));
   }
 }

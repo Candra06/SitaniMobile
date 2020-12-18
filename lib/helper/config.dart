@@ -22,8 +22,9 @@ class Config {
   static final HexColor onprogres = new HexColor('#008EE5');
   static final HexColor closed = new HexColor('#B3B3B3');
   static final HexColor open = new HexColor('#00C45C');
+  static final HexColor background = new HexColor('#f3f3f3');
 
-  static final String ipServer = 'http://7f98615793d2.ngrok.io/';
+  static final String ipServer = 'http://145ca37c16cd.ngrok.io/';
   static final String ipServerAPI = ipServer + 'api/';
   static final String ipAssets = '';
 
