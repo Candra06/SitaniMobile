@@ -171,45 +171,7 @@ class _SideProfileState extends State<SideProfile> {
                   ]),
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: new Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  child: new Row(children: <Widget>[
-                    new Container(
-                        margin: EdgeInsets.fromLTRB(8, 8, 16, 8),
-                        child: new Icon(
-                          Icons.perm_device_information,
-                          color: Config.primary,
-                          size: 25.0,
-                        )),
-                    new Flexible(
-                        child: Container(
-                            width: double.infinity,
-                            child: Text(
-                              'Tentang',
-                              style: TextStyle(fontSize: 14),
-                            ))),
-                    new ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minWidth: 25,
-                        maxWidth: 110,
-                      ),
-                      child: Container(
-                          child: new IconButton(
-                        icon: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black38,
-                        ),
-                        onPressed: () {
-                          // banned(context);
-                        },
-                      )),
-                    ),
-                  ]),
-                ),
-              ),
+              
               GestureDetector(
                 onTap: () {
                   alertLogout(); // memanggil method logout

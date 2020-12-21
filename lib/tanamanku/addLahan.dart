@@ -165,7 +165,7 @@ class _AddLahanState extends State<AddLahan> {
                     // selectedItem: ,
                   )),
               formInput(txtNama, 'Nama Lahan'),
-              formInput(txtLuas, 'Luas Lahan(m2)'),
+              formInputType(txtLuas, 'Luas Lahan(m2)', TextInputType.number),
               Container(
                 margin: EdgeInsets.only(top: 8),
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),

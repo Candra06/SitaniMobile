@@ -180,7 +180,7 @@ class _DialogAddPanenState extends State<DialogAddPanen> {
                 ),
               ),
             ),
-            formInput(txthasil, 'Hasil Panen(kg)'),
+            formInputType(txthasil, 'Hasil Panen(kg)', TextInputType.number),
             Container(
               margin: EdgeInsets.only(top: 8),
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),

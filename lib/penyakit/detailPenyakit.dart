@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:sitani_app/helper/config.dart';
-import 'package:sitani_app/helper/hexColor.dart';
-import 'package:sitani_app/helper/routes.dart';
 
 class DetailPenyakit extends StatefulWidget {
   final String idPenyakit;

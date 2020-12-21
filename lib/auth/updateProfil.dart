@@ -57,6 +57,7 @@ class _UpdateProfilState extends State<UpdateProfil> {
 
     http.Response req = await http.post(Config.ipServerAPI + 'update',
         headers: {'Authorization': 'Bearer $token'}, body: body);
+        print(req.body);
     if (req.statusCode == 200) {
       Config.alert(1, 'Data berhasil dirubah');
       SharedPreferences pref = await SharedPreferences.getInstance();
@@ -70,7 +71,7 @@ class _UpdateProfilState extends State<UpdateProfil> {
       await pref.setString("username",  txEmail.text);
       
       Navigator.pop(context);
-      Navigator.pushNamed(context, Routes.HOME, arguments: 3.toString());
+      Navigator.pushNamed(context, Routes.HOME, arguments: 2.toString());
     } else {
       Config.alert(0, 'Data gagal dirubah');
       Navigator.pop(context);

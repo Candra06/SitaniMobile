@@ -7,7 +7,9 @@ import 'package:sitani_app/auth/resetPassword.dart';
 import 'package:sitani_app/auth/splash.dart';
 import 'package:sitani_app/auth/updateProfil.dart';
 import 'package:sitani_app/diagnosa/gejala.dart';
+import 'package:sitani_app/diagnosa/hasil.dart';
 import 'package:sitani_app/diagnosa/listPenyakit.dart';
+import 'package:sitani_app/diagnosa/rekomendasi.dart';
 import 'package:sitani_app/home/detailArtikel.dart';
 import 'package:sitani_app/home/home.dart';
 import 'package:sitani_app/penyakit/detailPenyakit.dart';
@@ -38,6 +40,8 @@ class Routes {
   static const String DETAIL_LAHAN = '/detail_lahan';
   static const String DIAGNOSA = '/diagnosa';
   static const String GEJALA = '/gejala';
+  static const String HASIL = '/hasil';
+  static const String REKOMENDASI = '/rekomendasi';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case SPLASH:
@@ -53,28 +57,49 @@ class Routes {
             child: LupaSandi(), type: PageTransitionType.leftToRight);
       case RESET_SANDI:
         return PageTransition(
-            child: ResetPassword(id: settings.arguments,), type: PageTransitionType.leftToRight);
+            child: ResetPassword(
+              id: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
       case HOME:
         return PageTransition(
-            child: Home(indexPage: settings.arguments,), type: PageTransitionType.leftToRight);
+            child: Home(
+              indexPage: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
       case UPDATE_PROFIL:
         return PageTransition(
             child: UpdateProfil(), type: PageTransitionType.leftToRight);
       case DIAGNOSA:
         return PageTransition(
-            child: ListDiagnosaPenyakit(), type: PageTransitionType.leftToRight);
+            child: ListDiagnosaPenyakit(),
+            type: PageTransitionType.leftToRight);
       case TANAMAN:
         return PageTransition(
             child: ListTanaman(), type: PageTransitionType.leftToRight);
+      case REKOMENDASI:
+        return PageTransition(
+            child: Rekomendasi(param: settings.arguments,), type: PageTransitionType.fade);
       case GEJALA:
         return PageTransition(
-            child: Gejala(idPenyakit: settings.arguments,), type: PageTransitionType.leftToRight);
-      case ADD_LAHAN:
+            child: Gejala(
+              param: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
+      case HASIL:
         return PageTransition(
-            child: AddLahan(), type: PageTransitionType.fade);
+            child: Hasil(
+              param: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
+      case ADD_LAHAN:
+        return PageTransition(child: AddLahan(), type: PageTransitionType.fade);
       case DETAIL_LAHAN:
         return PageTransition(
-            child: DetailLahan(idLahan: settings.arguments,), type: PageTransitionType.fade);
+            child: DetailLahan(
+              idLahan: settings.arguments,
+            ),
+            type: PageTransitionType.fade);
       case LIST_PUPUK:
         return PageTransition(
             child: ListPupuk(), type: PageTransitionType.leftToRight);
@@ -83,16 +108,28 @@ class Routes {
             child: ListHama(), type: PageTransitionType.leftToRight);
       case DETAIL_HAMA:
         return PageTransition(
-            child: DetailPenyakit(idPenyakit: settings.arguments,), type: PageTransitionType.leftToRight);
+            child: DetailPenyakit(
+              idPenyakit: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
       case DETAIL_PUPUK:
         return PageTransition(
-            child: DetailPupuk(idPupuk: settings.arguments,), type: PageTransitionType.leftToRight);
+            child: DetailPupuk(
+              idPupuk: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
       case DETAIL_ARTIKEL:
         return PageTransition(
-            child: DetailArtikel(idArtikel: settings.arguments,), type: PageTransitionType.topToBottom);
+            child: DetailArtikel(
+              idArtikel: settings.arguments,
+            ),
+            type: PageTransitionType.topToBottom);
       case PENANGGULANGAN:
         return PageTransition(
-            child: Penanggulangan(idPenanggulangan: settings.arguments,), type: PageTransitionType.leftToRight);
+            child: Penanggulangan(
+              idPenanggulangan: settings.arguments,
+            ),
+            type: PageTransitionType.leftToRight);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

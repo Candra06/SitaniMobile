@@ -18,7 +18,7 @@ class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
       load = true;
     });
     String token = await Config.getToken();
-    http.Response res = await http.get(Config.ipServerAPI + 'penyakit',
+    http.Response res = await http.get(Config.ipServerAPI + 'listPenyakit',
         headers: {'Authorization': 'Bearer $token'});
     print(res.body);
     if (res.statusCode == 200) {
@@ -53,7 +53,11 @@ class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
           itemBuilder: (BuildContext context, int i) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, Routes.GEJALA, arguments: hama[i]['id'].toString());
+                var param = {
+                  'idPenyakit': hama[i]['id'].toString(),
+                  'penyakit': hama[i]['nama'].toString(),
+                };
+                Navigator.pushNamed(context, Routes.GEJALA, arguments: param);
               },
               child: Card(
                 child: Container(
@@ -61,12 +65,15 @@ class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
                   child: Row(
                     children: [
                       Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(50))
-                        ),
-                        margin: EdgeInsets.only(right: 8),
-                        child: Image.network(Config.ipServer+hama[i]['gambar'], height: 50,width: 50,)
-                      ),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          margin: EdgeInsets.only(right: 8),
+                          child: Image.network(
+                            Config.ipServer + hama[i]['gambar'],
+                            height: 50,
+                            width: 50,
+                          )),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +83,13 @@ class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
                             style: TextStyle(
                                 fontFamily: 'AirbnbMedium', fontSize: 16),
                           ),
-                         
+                          Text(
+                            hama[i]['gejala'],
+                            style: TextStyle(
+                                color: Config.textGrey,
+                                fontFamily: 'AirbnbMedium',
+                                fontSize: 14),
+                          ),
                         ],
                       )
                     ],
@@ -124,7 +137,6 @@ class _ListDiagnosaPenyakitState extends State<ListDiagnosaPenyakit> {
             Config.darkPrimary
           ]))),
         ),
-       
         body: Container(
           margin: EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: listData(),
